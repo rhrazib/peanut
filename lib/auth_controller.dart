@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:peanut/profile_view.dart';
 import 'auth_model.dart';
 import 'api_config.dart';
 
@@ -55,6 +56,8 @@ class AuthController extends GetxController {
         if (data['result'] == true) {
           accessToken.value = data['token'];
           await _storage.write(key: accessTokenKey, value: data['token']);
+
+          Get.to(ProfileView());
         } else {
           Get.snackbar('Login Failed', 'Incorrect login or password.',
               backgroundColor: Colors.red, colorText: Colors.white);
@@ -81,5 +84,47 @@ class AuthController extends GetxController {
   Future<void> logout() async {
     await _storage.delete(key: accessTokenKey);
     accessToken.value = '';
+  }
+
+  Future<Map<String, dynamic>> getAccountInformation() async {
+    try {
+      final response = await _dio.post(
+        '${ApiConfig.baseUrl}/GetAccountInformation',
+        data: {
+          "login": authModel.login,
+          "token": accessToken.value,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = response.data;
+        return data;
+      }
+
+      throw 'Unable to fetch account information';
+    } catch (e) {
+      throw 'Error: $e';
+    }
+  }
+
+  Future<String> getLastFourNumbersPhone() async {
+    try {
+      final response = await _dio.post(
+        '${ApiConfig.baseUrl}/GetLastFourNumbersPhone',
+        data: {
+          "login": authModel.login,
+          "token": accessToken.value,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final String lastFourNumbers = response.data;
+        return lastFourNumbers; // Successfully fetched the last four numbers.
+      } else {
+        throw 'Unable to fetch last four numbers';
+      }
+    } catch (e) {
+      throw 'Error: $e';
+    }
   }
 }
