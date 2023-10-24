@@ -3,6 +3,8 @@ import 'package:peanut/api/dio.dart';
 import 'package:peanut/api/api_config.dart';
 
 class ProfileController extends GetxController {
+
+
   Future<Map<String, dynamic>> getAccountInformation(String accessToken,String login) async {
     try {
       final response = await DioClient.dio.post(

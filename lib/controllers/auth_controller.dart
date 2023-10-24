@@ -9,15 +9,23 @@ import 'package:peanut/views/trade_list_view.dart';
 import 'package:peanut/models/trade_model.dart';
 import 'package:peanut/models/auth_model.dart';
 import 'package:peanut/api/api_config.dart';
+import 'package:peanut/common/utils/custom_validator.dart';
 
 class AuthController extends GetxController {
   final FlutterSecureStorage _storage = FlutterSecureStorage();
   final Connectivity _connectivity = Connectivity();
 
-  final AuthModel authModel = AuthModel(login: '2088888', password: 'ral11lod');
+  //final AuthModel authModel = AuthModel(login: '2088888', password: 'ral11lod');
+  //final AuthModel authModel;
+
+  //= AuthModel(login: '', password: '');
+
   final RxString accessToken = ''.obs;
+  final RxString accessInput = ''.obs;
+
   final String accessTokenKey = 'access_token';
   final String tokenExpirationKey = 'token_expiration';
+  final String loginKey = 'loginKey';
 
   final RxBool isLoading = false.obs;
   final RxList<TradeModel> userTradesList = <TradeModel>[].obs;
@@ -26,11 +34,14 @@ class AuthController extends GetxController {
   void onInit() async {
     super.onInit();
     final storedToken = await _storage.read(key: accessTokenKey);
+    final loginInput = await _storage.read(key: loginKey);
+
     final isExpired =
         storedToken != null ? await isTokenExpired(storedToken) : true;
 
-    if (!isExpired) {
+    if (!isExpired && loginInput!=null) {
       accessToken.value = storedToken;
+      accessInput.value = loginInput;
       Get.off(DashboardPage()); // Redirect to the dashboard
     }
   }
@@ -56,23 +67,25 @@ class AuthController extends GetxController {
       final isConnected = await checkInternetConnection();
       if (!isConnected) {
         Get.snackbar('No Internet', 'Please check your internet connection.',
-            backgroundColor: Colors.red, colorText: Colors.white);
+            snackPosition: SnackPosition.BOTTOM, // Specify the position here
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
         isLoading.value = false;
         return;
       }
 
       final response = await DioClient.dio.post(
         '${ApiConfig.baseUrl}/IsAccountCredentialsCorrect',
-        // data: {
-        //   "login": login,
-        //   "password": password,
-        // },
+        data: {
+          "login": login,
+          "password": password,
+        },
 
         //todo remove
-        data: {
-          "login": authModel.login, // Use the testing login
-          "password": authModel.password, // Use the testing password
-        },
+        // data: {
+        //   "login": authModel.login, // Use the testing login
+        //   "password": authModel.password, // Use the testing password
+        // },
       );
 
       if (response.statusCode == 200) {
@@ -80,7 +93,9 @@ class AuthController extends GetxController {
         if (data['result'] == true) {
           // Store credentials securely
           await _storage.write(key: accessTokenKey, value: data['token']);
+          await _storage.write(key: loginKey, value: login);
 
+          //authModel =  AuthModel(login: login, password: '');
           // Record token expiration time
           final currentTime = DateTime.now();
           final tokenExpiration = currentTime.add(Duration(
@@ -90,26 +105,37 @@ class AuthController extends GetxController {
               value: tokenExpiration.toIso8601String());
 
           accessToken.value = data['token'];
+          accessInput.value = login;
           //  Get.to(ProfileView());
           // Get.to(DashboardPage());
           Get.toNamed('/dashboard');
+        } else if (data['result'] == false) {
+          Get.snackbar('Login Failed', 'Incorrect login or password.',
+              backgroundColor: Colors.red, colorText: Colors.white);
         } else {
           Get.snackbar('Login Failed', 'Incorrect login or password.',
               backgroundColor: Colors.red, colorText: Colors.white);
         }
-      } else if (response.statusCode == 401) {
-        Get.snackbar('Login Failed', 'Unauthorized access.',
-            backgroundColor: Colors.red, colorText: Colors.white);
-      } else if (response.statusCode == 500) {
-        Get.snackbar('Server Error', 'Internal server error occurred.',
-            backgroundColor: Colors.red, colorText: Colors.white);
-      } else {
-        Get.snackbar('Error', 'Network error occurred.',
-            backgroundColor: Colors.red, colorText: Colors.white);
       }
+      // else if (response.statusCode == 401) {
+      //   Get.snackbar('Login Failed', 'Unauthorized access.',
+      //       backgroundColor: Colors.red, colorText: Colors.white);
+      // } else if (response.statusCode == 500) {
+      //   Get.snackbar('Server Error', 'Internal server error occurred.',
+      //       backgroundColor: Colors.red, colorText: Colors.white);
+      // } else {
+      //   Get.snackbar('Error', 'Network error occurred.',
+      //       backgroundColor: Colors.red, colorText: Colors.white);
+      // }
     } catch (e) {
-      Get.snackbar('Error', 'Network error occurred.',
-          backgroundColor: Colors.red, colorText: Colors.white);
+      // todo custom showCustomSnackbar(
+      //   title: "Error",
+      //   message: 'Network error occurred.',
+      // );
+
+      // Get.snackbar('Error', 'Network error occurred.',
+      //     snackPosition: SnackPosition.BOTTOM, // Specify the position here
+      //     backgroundColor: Colors.red, colorText: Colors.white);
       print('Error: $e');
     } finally {
       isLoading.value = false;
@@ -120,5 +146,6 @@ class AuthController extends GetxController {
     await _storage.delete(key: accessTokenKey);
     await _storage.delete(key: tokenExpirationKey);
     accessToken.value = '';
+    Get.offAllNamed('/login');
   }
 }

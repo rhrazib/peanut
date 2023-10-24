@@ -43,7 +43,7 @@ class ProfileView extends StatelessWidget {
                   SizedBox(height: 16),
                   if (authController.accessToken.isNotEmpty)
                     FutureBuilder<Map<String, dynamic>>(
-                      future: profileController.getAccountInformation(authController.accessToken.value, authController.authModel.login),
+                      future: profileController.getAccountInformation(authController.accessToken.value, authController.accessInput.value),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return Center(child: CircularProgressIndicator());
@@ -94,7 +94,7 @@ class ProfileView extends StatelessWidget {
                 ],
               ),
               child: FutureBuilder<String>(
-                future: profileController.getLastFourNumbersPhone(authController.accessToken.value, authController.authModel.login),
+                future: profileController.getLastFourNumbersPhone(authController.accessToken.value, authController.accessInput.value),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
