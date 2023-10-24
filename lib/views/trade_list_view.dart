@@ -50,8 +50,8 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:peanut/auth_controller.dart';
-import 'package:peanut/trade_model.dart';
+import 'package:peanut/controllers/auth_controller.dart';
+import 'package:peanut/models/trade_model.dart';
 
 class TradesList extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();

@@ -184,11 +184,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:peanut/profile_view.dart';
-import 'package:peanut/trade_list_view.dart';
-import 'package:peanut/trade_model.dart';
-import 'auth_model.dart';
-import 'api_config.dart';
+import 'package:peanut/views/profile_view.dart';
+import 'package:peanut/views/trade_list_view.dart';
+import 'package:peanut/models/trade_model.dart';
+import 'package:peanut/models/auth_model.dart';
+import 'package:peanut/api_config.dart';
 
 class AuthController extends GetxController {
   final Dio _dio = Dio();

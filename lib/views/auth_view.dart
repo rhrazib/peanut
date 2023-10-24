@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'auth_controller.dart';
+import 'package:peanut/controllers/auth_controller.dart';
 
 class AuthView extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
