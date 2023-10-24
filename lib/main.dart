@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:peanut/views/auth_view.dart';
-import 'package:peanut/views/account_info.dart';
 import 'package:peanut/views/dashboard_view.dart';
 import 'package:peanut/views/profile_view.dart';
 import 'package:peanut/views/trade_list_view.dart';
 import 'package:peanut/controllers/auth_controller.dart';
-
+import 'package:peanut/controllers/profile_controller.dart'; // Import ProfileController
 
 void main() {
   Get.put(AuthController());
+  Get.put(ProfileController()); // Initialize ProfileController
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,24 +25,9 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => AuthView()),
         GetPage(name: '/dashboard', page: () => DashboardPage()),
-        GetPage(name: '/profile', page: () => ProfileView()), // Add this line
-        GetPage(name: '/accountinfo', page: () => TradesList()),//AccountInfoView()), // Add this line
+        GetPage(name: '/profile', page: () => ProfileView()),
+        GetPage(name: '/accountinfo', page: () => TradesList()),//AccountInfoView()), // Make sure you have the correct view name
       ],
     );
   }
 }
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return GetMaterialApp(
-//       title: 'Peanut',
-//       initialRoute: '/login',
-//       getPages: [
-//         GetPage(name: '/login', page: () => AuthView()),
-//         GetPage(name: '/dashboard', page: () => DashboardView()),
-//         GetPage(name: '/profile', page: () => ProfileView()),
-//         GetPage(name: '/trades', page: () => TradesList()),
-//       ],
-//     );
-//   }
-// }

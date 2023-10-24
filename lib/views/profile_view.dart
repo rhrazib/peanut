@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:peanut/controllers/auth_controller.dart';
+import 'package:peanut/controllers/profile_controller.dart';
 
 class ProfileView extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
+  final ProfileController profileController = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ProfileView extends StatelessWidget {
             Obx(() {
               if (authController.accessToken.isNotEmpty) {
                 return FutureBuilder<Map<String, dynamic>>(
-                  future: authController.getAccountInformation(),
+                  future: profileController.getAccountInformation(authController.accessToken.value,authController.authModel.login),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return CircularProgressIndicator();
@@ -53,7 +55,7 @@ class ProfileView extends StatelessWidget {
             }),
             SizedBox(height: 16),
             FutureBuilder<String>(
-              future: authController.getLastFourNumbersPhone(),
+              future: profileController.getLastFourNumbersPhone(authController.accessToken.value,authController.authModel.login),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return CircularProgressIndicator();
