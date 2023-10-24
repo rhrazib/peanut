@@ -8,17 +8,15 @@ import 'package:peanut/views/dashboard_view.dart';
 import 'package:peanut/views/trade_list_view.dart';
 import 'package:peanut/models/trade_model.dart';
 import 'package:peanut/models/auth_model.dart';
-import 'package:peanut/api/api_config.dart';
 import 'package:peanut/common/utils/custom_validator.dart';
+import 'package:peanut/services/auth_service.dart';
 
 class AuthController extends GetxController {
+  final AuthService authService =
+      AuthService(); // Create an instance of the service
+
   final FlutterSecureStorage _storage = FlutterSecureStorage();
   final Connectivity _connectivity = Connectivity();
-
-  //final AuthModel authModel = AuthModel(login: '2088888', password: 'ral11lod');
-  //final AuthModel authModel;
-
-  //= AuthModel(login: '', password: '');
 
   final RxString accessToken = ''.obs;
   final RxString accessInput = ''.obs;
@@ -28,7 +26,6 @@ class AuthController extends GetxController {
   final String loginKey = 'loginKey';
 
   final RxBool isLoading = false.obs;
-  final RxList<TradeModel> userTradesList = <TradeModel>[].obs;
 
   @override
   void onInit() async {
@@ -39,7 +36,7 @@ class AuthController extends GetxController {
     final isExpired =
         storedToken != null ? await isTokenExpired(storedToken) : true;
 
-    if (!isExpired && loginInput!=null) {
+    if (!isExpired && loginInput != null) {
       accessToken.value = storedToken;
       accessInput.value = loginInput;
       Get.off(DashboardView()); // Redirect to the dashboard
@@ -73,29 +70,28 @@ class AuthController extends GetxController {
         isLoading.value = false;
         return;
       }
+      final response =
+          await authService.login(login, password); // Use the service
 
-      final response = await DioClient.dio.post(
-        '${ApiConfig.baseUrl}/IsAccountCredentialsCorrect',
-        data: {
-          "login": login,
-          "password": password,
-        },
-
-        //todo remove
-        // data: {
-        //   "login": authModel.login, // Use the testing login
-        //   "password": authModel.password, // Use the testing password
-        // },
-      );
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = response.data;
+      // final response = await DioClient.dio.post(
+      //   '${ApiConfig.baseUrl}/IsAccountCredentialsCorrect',
+      //   data: {
+      //     "login": login,
+      //     "password": password,
+      //   },
+      //
+      //   //todo remove
+      //   // data: {
+      //   //   "login": authModel.login, // Use the testing login
+      //   //   "password": authModel.password, // Use the testing password
+      //   // },
+      // );
+      if (response != null) {
+        final data = response;
         if (data['result'] == true) {
           // Store credentials securely
           await _storage.write(key: accessTokenKey, value: data['token']);
           await _storage.write(key: loginKey, value: login);
-
-          //authModel =  AuthModel(login: login, password: '');
           // Record token expiration time
           final currentTime = DateTime.now();
           final tokenExpiration = currentTime.add(Duration(
@@ -117,16 +113,6 @@ class AuthController extends GetxController {
               backgroundColor: Colors.red, colorText: Colors.white);
         }
       }
-      // else if (response.statusCode == 401) {
-      //   Get.snackbar('Login Failed', 'Unauthorized access.',
-      //       backgroundColor: Colors.red, colorText: Colors.white);
-      // } else if (response.statusCode == 500) {
-      //   Get.snackbar('Server Error', 'Internal server error occurred.',
-      //       backgroundColor: Colors.red, colorText: Colors.white);
-      // } else {
-      //   Get.snackbar('Error', 'Network error occurred.',
-      //       backgroundColor: Colors.red, colorText: Colors.white);
-      // }
     } catch (e) {
       // todo custom showCustomSnackbar(
       //   title: "Error",

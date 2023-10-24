@@ -1,11 +1,8 @@
 import 'package:get/get.dart';
-import 'package:peanut/api/dio.dart';
 import 'package:peanut/api/api_config.dart';
-import 'package:peanut/services/profile_service.dart';
 
 class ProfileController extends GetxController {
-  final ProfileService profileService =
-      ProfileService(); // Create an instance of the service
+  final ProfileService profileService = ProfileService();
 
   Future<Map<String, dynamic>> getAccountInformation(
       String accessToken, String login) async {
