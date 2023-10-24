@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart';
+import 'package:peanut/api/dio.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:peanut/views/profile_view.dart';
 import 'package:peanut/views/dashboard_view.dart';
@@ -11,7 +11,6 @@ import 'package:peanut/models/auth_model.dart';
 import 'package:peanut/api/api_config.dart';
 
 class AuthController extends GetxController {
-  final Dio _dio = Dio();
   final FlutterSecureStorage _storage = FlutterSecureStorage();
   final Connectivity _connectivity = Connectivity();
 
@@ -62,7 +61,7 @@ class AuthController extends GetxController {
         return;
       }
 
-      final response = await _dio.post(
+      final response = await DioClient.dio.post(
         '${ApiConfig.baseUrl}/IsAccountCredentialsCorrect',
         // data: {
         //   "login": login,
@@ -71,7 +70,7 @@ class AuthController extends GetxController {
 
         //todo remove
         data: {
-          "login": authModel.login,       // Use the testing login
+          "login": authModel.login, // Use the testing login
           "password": authModel.password, // Use the testing password
         },
       );
@@ -91,8 +90,8 @@ class AuthController extends GetxController {
               value: tokenExpiration.toIso8601String());
 
           accessToken.value = data['token'];
-        //  Get.to(ProfileView());
-         // Get.to(DashboardPage());
+          //  Get.to(ProfileView());
+          // Get.to(DashboardPage());
           Get.toNamed('/dashboard');
         } else {
           Get.snackbar('Login Failed', 'Incorrect login or password.',
@@ -121,7 +120,5 @@ class AuthController extends GetxController {
     await _storage.delete(key: accessTokenKey);
     await _storage.delete(key: tokenExpirationKey);
     accessToken.value = '';
-    // Navigate to the login page
-    Get.offAllNamed('/login');
   }
 }

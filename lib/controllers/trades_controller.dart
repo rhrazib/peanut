@@ -1,16 +1,15 @@
 import 'package:get/get.dart';
-import 'package:dio/dio.dart';
+import 'package:peanut/api/dio.dart';
 import 'package:peanut/api/api_config.dart';
 import 'package:peanut/models/trade_model.dart';
 
 class TradesController extends GetxController {
-  final Dio _dio = Dio();
   final RxList<TradeModel> userTradesList = <TradeModel>[].obs;
   final RxDouble totalProfit = RxDouble(0.0);
 
   Future<List<TradeModel>> getUserTrades(String accessToken, String login) async {
     try {
-      final response = await _dio.post(
+      final response = await  DioClient.dio.post(
         '${ApiConfig.baseUrl}/GetOpenTrades',
         data: {
           "login": login,

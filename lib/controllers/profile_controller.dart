@@ -1,13 +1,11 @@
 import 'package:get/get.dart';
-import 'package:dio/dio.dart';
+import 'package:peanut/api/dio.dart';
 import 'package:peanut/api/api_config.dart';
 
 class ProfileController extends GetxController {
-  final Dio _dio = Dio();
-
   Future<Map<String, dynamic>> getAccountInformation(String accessToken,String login) async {
     try {
-      final response = await _dio.post(
+      final response = await DioClient.dio.post(
         '${ApiConfig.baseUrl}/GetAccountInformation',
         data: {
           "login": login,
@@ -28,7 +26,7 @@ class ProfileController extends GetxController {
 
   Future<String> getLastFourNumbersPhone(String accessToken,String login) async {
     try {
-      final response = await _dio.post(
+      final response = await  DioClient.dio.post(
         '${ApiConfig.baseUrl}/GetLastFourNumbersPhone',
         data: {
           "login": login,

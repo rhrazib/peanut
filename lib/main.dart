@@ -5,9 +5,10 @@ import 'package:peanut/views/dashboard_view.dart';
 import 'package:peanut/views/profile_view.dart';
 import 'package:peanut/views/trade_list_view.dart';
 import 'package:peanut/controllers/auth_controller.dart';
-import 'package:peanut/controllers/profile_controller.dart'; // Import ProfileController
-
+import 'package:peanut/controllers/profile_controller.dart';
+import 'package:peanut/api/dio.dart';
 void main() {
+  DioClient.setupDio();
   Get.put(AuthController());
   Get.put(ProfileController()); // Initialize ProfileController
   runApp(MyApp());
