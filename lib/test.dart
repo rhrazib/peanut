@@ -1,16 +1,23 @@
 import 'package:get/get.dart';
-import 'package:peanut/api/api_config.dart';
+import 'package:peanut/models/trade_model.dart';
+import 'package:peanut/services/trades_service.dart';
 
-class ProfileController extends GetxController {
-  final ProfileService profileService = ProfileService();
+class TradesController extends GetxController {
+  final tradesService = TradesService();
 
-  Future<Map<String, dynamic>> getAccountInformation(
-      String accessToken, String login) async {
-    return profileService.getAccountInformation(accessToken, login);
-  }
+  final RxList<TradeModel> userTradesList = <TradeModel>[].obs;
+  final RxDouble totalProfit = RxDouble(0.0);
 
-  Future<String> getLastFourNumbersPhone(
-      String accessToken, String login) async {
-    return profileService.getLastFourNumbersPhone(accessToken, login);
+  Future<void> fetchUserTrades(String accessToken, String login) async {
+    try {
+      final trades = await tradesService.getUserTrades(accessToken, login);
+      userTradesList.assignAll(trades);
+
+      // Calculate total profit
+      final total = trades.fold<double>(0.0, (sum, trade) => sum + (trade.profit ?? 0));
+      totalProfit.value = total;
+    } catch (e) {
+      throw 'Error: $e';
+    }
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:peanut/controllers/auth_controller.dart';
-
+import 'package:peanut/views/dashboard_view.dart';
 class AuthView extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -11,6 +11,10 @@ class AuthView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (authController.accessToken.isNotEmpty) {
+      // The user is already authenticated; redirect to the dashboard
+      return DashboardView();
+    }
     return Scaffold(
       body: Center(
         child: Padding(

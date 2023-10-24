@@ -15,7 +15,7 @@ class TradeListView extends StatelessWidget {
         title: Text('User Trades'),
       ),
       body: FutureBuilder<List<TradeModel>>(
-        future: tradesController.getUserTrades(authController.accessToken.value, authController.accessInput.value),
+        future: tradesController.fetchUserTrades(authController.accessToken.value, authController.accessInput.value),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -26,7 +26,7 @@ class TradeListView extends StatelessWidget {
 
             return RefreshIndicator(
               onRefresh: () async {
-                await tradesController.getUserTrades(authController.accessToken.value, authController.accessInput.value);
+                await tradesController.fetchUserTrades(authController.accessToken.value, authController.accessInput.value);
               },
               child: Column(
                 children: [
