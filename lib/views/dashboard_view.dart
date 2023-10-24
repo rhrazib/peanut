@@ -16,6 +16,20 @@ class DashboardPage extends StatelessWidget {
           children: [
             Text('Welcome to the Dashboard!'),
             ElevatedButton(
+              onPressed: () {
+                Get.toNamed('/profile'); // Navigate to the profile page
+              },
+              child: Text('View Profile'),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Get.toNamed('/accountinfo'); // Navigate to the account information page
+              },
+              child: Text('Account Information'),
+            ),
+
+            ElevatedButton(
               onPressed: () => authController.logout(),
               child: Text('Logout'),
             ),

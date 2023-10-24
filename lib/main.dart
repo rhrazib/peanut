@@ -24,6 +24,8 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => AuthView()),
         GetPage(name: '/dashboard', page: () => DashboardPage()),
+        GetPage(name: '/profile', page: () => ProfileView()), // Add this line
+        GetPage(name: '/accountinfo', page: () => TradesList()),//AccountInfoView()), // Add this line
       ],
     );
   }
