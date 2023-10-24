@@ -128,49 +128,6 @@ class AuthController extends GetxController {
 
 // Other methods (getAccountInformation, getLastFourNumbersPhone, getUserTrades) remain the same.
 
-  Future<Map<String, dynamic>> getAccountInformation() async {
-    try {
-      final response = await _dio.post(
-        '${ApiConfig.baseUrl}/GetAccountInformation',
-        data: {
-          "login": authModel.login,
-          "token": accessToken.value,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = response.data;
-      //  Get.to(TradesList());
-        return data;
-      }
-
-      throw 'Unable to fetch account information';
-    } catch (e) {
-      throw 'Error: $e';
-    }
-  }
-
-  Future<String> getLastFourNumbersPhone() async {
-    try {
-      final response = await _dio.post(
-        '${ApiConfig.baseUrl}/GetLastFourNumbersPhone',
-        data: {
-          "login": authModel.login,
-          "token": accessToken.value,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final String lastFourNumbers = response.data;
-        return lastFourNumbers; // Successfully fetched the last four numbers.
-      } else {
-        throw 'Unable to fetch last four numbers';
-      }
-    } catch (e) {
-      throw 'Error: $e';
-    }
-  }
-
   Future<List<TradeModel>> getUserTrades() async {
     try {
       final response = await _dio.post(

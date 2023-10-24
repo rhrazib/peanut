@@ -13,59 +13,118 @@ class ProfileView extends StatelessWidget {
       appBar: AppBar(
         title: Text('User Profile'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
           children: [
-            Text('User Information'),
-            SizedBox(height: 16),
-            Obx(() {
-              if (authController.accessToken.isNotEmpty) {
-                return FutureBuilder<Map<String, dynamic>>(
-                  future: profileController.getAccountInformation(authController.accessToken.value,authController.authModel.login),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      final accountInfo = snapshot.data;
-                      final name = accountInfo?['name'] ?? 'N/A';
-                      final address = accountInfo?['address'] ?? 'N/A';
-                      final balance = accountInfo?['balance'] ?? 'N/A';
-                      final city = accountInfo?['city'] ?? 'N/A';
-                      final country = accountInfo?['country'] ?? 'N/A';
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 3,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'User Information',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  if (authController.accessToken.isNotEmpty)
+                    FutureBuilder<Map<String, dynamic>>(
+                      future: profileController.getAccountInformation(authController.accessToken.value, authController.authModel.login),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          final accountInfo = snapshot.data;
+                          final name = accountInfo?['name'] ?? 'N/A';
+                          final address = accountInfo?['address'] ?? 'N/A';
+                          final balance = accountInfo?['balance'] ?? 'N/A';
+                          final city = accountInfo?['city'] ?? 'N/A';
+                          final country = accountInfo?['country'] ?? 'N/A';
 
-                      return Column(
-                        children: [
-                          Text('User Name: $name'),
-                          Text('User Address: $address'),
-                          Text('User Balance: $balance'),
-                          Text('User City: $city'),
-                          Text('User Country: $country'),
-                          // Add more properties as needed.
-                        ],
-                      );
-                    }
-                  },
-                );
-              } else {
-                return Text('Please log in to view user information.');
-              }
-            }),
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('User Name: $name'),
+                              Text('User Address: $address'),
+                              Text('User Balance: $balance'),
+                              Text('User City: $city'),
+                              Text('User Country: $country'),
+                              // Add more properties as needed.
+                            ],
+                          );
+                        }
+                      },
+                    )
+                  else
+                    Text(
+                      'Please log in to view user information.',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                ],
+              ),
+            ),
             SizedBox(height: 16),
-            FutureBuilder<String>(
-              future: profileController.getLastFourNumbersPhone(authController.accessToken.value,authController.authModel.login),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  final lastFourNumbers = snapshot.data ?? 'N/A';
-                  return Text('Last Four Numbers of Phone: $lastFourNumbers');
-                }
-              },
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 3,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: FutureBuilder<String>(
+                future: profileController.getLastFourNumbersPhone(authController.accessToken.value, authController.authModel.login),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    final lastFourNumbers = snapshot.data ?? 'N/A';
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Last Four Numbers of Phone',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          lastFourNumbers,
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                },
+              ),
             ),
           ],
         ),
