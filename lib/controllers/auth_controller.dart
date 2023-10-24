@@ -22,7 +22,6 @@ class AuthController extends GetxController {
 
   final RxBool isLoading = false.obs;
   final RxList<TradeModel> userTradesList = <TradeModel>[].obs;
-  final RxDouble totalProfit = RxDouble(0.0);
 
   @override
   void onInit() async {
@@ -124,53 +123,5 @@ class AuthController extends GetxController {
     accessToken.value = '';
     // Navigate to the login page
     Get.offAllNamed('/login');
-  }
-
-// Other methods (getAccountInformation, getLastFourNumbersPhone, getUserTrades) remain the same.
-
-  Future<List<TradeModel>> getUserTrades() async {
-    try {
-      final response = await _dio.post(
-        '${ApiConfig.baseUrl}/GetOpenTrades',
-        data: {
-          "login": authModel.login,
-          "token": accessToken.value,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final List<dynamic> tradesData = response.data;
-        final List<TradeModel> userTrades = tradesData
-            .map((trade) => TradeModel(
-                  currentPrice: trade['currentPrice'],
-                  comment: trade['comment'],
-                  digits: trade['digits'],
-                  login: trade['login'],
-                  openPrice: trade['openPrice'],
-                  openTime: trade['openTime'],
-                  profit: trade['profit'],
-                  sl: trade['sl'],
-                  swaps: trade['swaps'],
-                  symbol: trade['symbol'],
-                  tp: trade['tp'],
-                  ticket: trade['ticket'],
-                  type: trade['type'],
-                  volume: trade['volume'],
-                ))
-            .toList();
-
-        // Calculate total profit
-        final double profitSum =
-            userTrades.fold(0.0, (sum, trade) => sum + (trade.profit ?? 0.0));
-        totalProfit.value = profitSum;
-
-        userTradesList.value = userTrades;
-        return userTrades;
-      }
-
-      throw 'Unable to fetch user trades';
-    } catch (e) {
-      throw 'Error: $e';
-    }
   }
 }

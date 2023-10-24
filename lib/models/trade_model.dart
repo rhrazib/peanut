@@ -6,13 +6,13 @@ class TradeModel {
   final double openPrice;
   final String openTime;
   final double profit;
-  final double? sl;     // Updated to accept double?
-  final double? swaps;  // Updated to accept double?
+  final double? sl;
+  final double? swaps;
   final String symbol;
-  final double? tp;     // Updated to accept double?
+  final double? tp;
   final int ticket;
   final int type;
-  final double? volume; // Updated to accept double?
+  final double? volume;
 
   TradeModel({
     required this.currentPrice,
