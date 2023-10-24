@@ -4,7 +4,7 @@ import 'package:peanut/controllers/auth_controller.dart';
 import 'package:peanut/controllers/trades_controller.dart';
 import 'package:peanut/models/trade_model.dart';
 
-class TradesList extends StatelessWidget {
+class TradeListView extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
   final TradesController tradesController = Get.put(TradesController());
 

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 
 
-class DashboardPage extends StatelessWidget {
+class DashboardView extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
 
   @override

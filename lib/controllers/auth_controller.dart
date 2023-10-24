@@ -42,7 +42,7 @@ class AuthController extends GetxController {
     if (!isExpired && loginInput!=null) {
       accessToken.value = storedToken;
       accessInput.value = loginInput;
-      Get.off(DashboardPage()); // Redirect to the dashboard
+      Get.off(DashboardView()); // Redirect to the dashboard
     }
   }
 
