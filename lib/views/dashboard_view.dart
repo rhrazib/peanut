@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:peanut/common/dialog/custom_dialog.dart';
+import 'package:peanut/common/widgets/custom_button.dart';
 import 'package:peanut/controllers/auth_controller.dart';
-
 
 class DashboardView extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
@@ -10,56 +11,76 @@ class DashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-
-        // Here, show a confirmation dialog when back button is pressed
-        bool confirmExit = await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Confirm Exit'),
-            content: Text('Do you want to exit the app?'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true); // Allow going back
-                },
-                child: Text('Yes'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(false); // Prevent going back
-                },
-                child: Text('No'),
-              ),
-            ],
-          ),
-        );
-
-        return confirmExit ?? false; // Default behavior is to prevent going back.
+        bool confirmExit = await showExitConfirmationDialog(context);
+        return confirmExit ?? false;
       },
-      child:  Scaffold(
-        appBar: AppBar(title: Text('Dashboard')),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Center(child: Text('Dashboard')),
+          automaticallyImplyLeading: false, // Remove the default back button
+        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Welcome to the Dashboard!'),
-              ElevatedButton(
-                onPressed: () {
-                  Get.toNamed('/profile'); // Navigate to the profile page
-                },
-                child: Text('View Profile'),
+              SizedBox(height: 20),
+              Text(
+                'Welcome to the',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange, // Dark blue color
+                ),
+              ),
+              Text(
+                'Peanut Service!',
+                style: TextStyle(
+                  fontSize: 32, // Increase the font size
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange, // Orange color
+                  backgroundColor: Colors.blue, // Use dark blue as the background color
+                ),
               ),
 
-              ElevatedButton(
-                onPressed: () {
-                  Get.toNamed('/accountinfo'); // Navigate to the account information page
-                },
-                child: Text('Account Information'),
-              ),
 
-              ElevatedButton(
-                onPressed: () => authController.logout(),
-                child: Text('Logout'),
+             // SizedBox(height: 20),
+              Expanded(
+                child: Center(
+                  child: GridView.count(
+                    crossAxisCount: MediaQuery.of(context).orientation == Orientation.landscape ? 4 : 2,
+                    shrinkWrap: true,
+                    children: [
+                      CustomButton(
+                        title: 'Profile',
+                        iconData: Icons.person,
+                        onPressed: () {
+                          Get.toNamed('/profile');
+                        },
+                      ),
+                      CustomButton(
+                        title: 'Trades',
+                        iconData: Icons.account_balance,
+                        onPressed: () {
+                          Get.toNamed('/accountinfo');
+                        },
+                      ),
+                      CustomButton(
+                        title: 'Campaigns',
+                        iconData: Icons.campaign,
+                        onPressed: () {
+                          Get.toNamed('/promo');
+                        },
+                      ),
+                      CustomButton(
+                        title: 'Logout',
+                        iconData: Icons.logout,
+                        onPressed: () {
+                          authController.logout();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

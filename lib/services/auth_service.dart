@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:peanut/api/dio.dart';
 import 'package:peanut/api/api_config.dart';
+import 'package:peanut/common/utils/custom_txt.dart';
 
 class AuthService {
   Future<Map<String, dynamic>> login(String login, String password) async {
@@ -17,14 +18,10 @@ class AuthService {
         final Map<String, dynamic> data = response.data;
         return data;
       } else {
-        return {'error': 'Incorrect login or password'};
+        return {'error': CustomText.incorrectCredentials};
       }
     } catch (e) {
-      return {'error': 'Network error occurred'};
+      return {'error': CustomText.networkError};
     }
-  }
-
-  Future<void> logout() async {
-    // Implement the logout logic here
   }
 }

@@ -5,10 +5,9 @@ import 'package:peanut/api/dio.dart';
 import 'package:xml/xml.dart';
 
 class PromoService {
- // final Dio _dio = Dio();
-
   Future<List<Map<String, dynamic>>?> fetchPromoData() async {
-    final url = 'https://api-forexcopy.contentdatapro.com/Services/CabinetMicroService.svc';
+    final url =
+        'https://api-forexcopy.contentdatapro.com/Services/CabinetMicroService.svc';
     final soapAction = 'http://tempuri.org/CabinetMicroService/GetCCPromo';
 
     final headers = {
@@ -33,11 +32,14 @@ class PromoService {
       );
 
       if (response.statusCode == 200) {
-        final getCCPromoResultElement = XmlDocument.parse(response.data).findAllElements('GetCCPromoResult').first;
+        final getCCPromoResultElement = XmlDocument.parse(response.data)
+            .findAllElements('GetCCPromoResult')
+            .first;
         var getCCPromoResultContent = getCCPromoResultElement.text;
 
         // Replace "False" with "false" in the JSON string
-        getCCPromoResultContent = getCCPromoResultContent.replaceAll('False', 'false');
+        getCCPromoResultContent =
+            getCCPromoResultContent.replaceAll('False', 'false');
 
         final promoData = json.decode(getCCPromoResultContent);
 

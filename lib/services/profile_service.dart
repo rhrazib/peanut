@@ -1,7 +1,10 @@
 import 'package:peanut/api/dio.dart';
 import 'package:peanut/api/api_config.dart';
+import 'package:peanut/common/utils/custom_txt.dart';
+
 class ProfileService {
-  Future<Map<String, dynamic>> getAccountInformation(String accessToken, String login) async {
+  Future<Map<String, dynamic>> getAccountInformation(
+      String accessToken, String login) async {
     try {
       final response = await DioClient.dio.post(
         '${ApiConfig.baseUrl}/GetAccountInformation',
@@ -15,14 +18,15 @@ class ProfileService {
         final Map<String, dynamic> data = response.data;
         return data;
       } else {
-        return {'error': 'Unable to fetch account information'};
+        return {'error': CustomText.unableToFetch};
       }
     } catch (e) {
       return {'error': 'Error: $e'};
     }
   }
 
-  Future<String> getLastFourNumbersPhone(String accessToken, String login) async {
+  Future<String> getLastFourNumbersPhone(
+      String accessToken, String login) async {
     try {
       final response = await DioClient.dio.post(
         '${ApiConfig.baseUrl}/GetLastFourNumbersPhone',
@@ -36,7 +40,7 @@ class ProfileService {
         final String lastFourNumbers = response.data;
         return lastFourNumbers;
       } else {
-        return 'Unable to fetch last four numbers';
+        return CustomText.unableToFetchLastFourNumbers;
       }
     } catch (e) {
       return 'Error: $e';

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:peanut/common/utils/custom_snackbar.dart';
+import 'package:peanut/common/utils/custom_txt.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -9,44 +11,34 @@ class ErrorInterceptor extends Interceptor {
   void onError(DioError err, ErrorInterceptorHandler handler) {
     if (err.response != null) {
       final statusCode = err.response?.statusCode;
+      final context = Get.context;
+
       switch (statusCode) {
         case 401:
           if (err.requestOptions.path == '${ApiConfig.baseUrl}/IsAccountCredentialsCorrect') {
-            // Customize error message for login API
-            Get.snackbar('Login Failed', 'Incorrect login or password.',
-                backgroundColor: Colors.red, colorText: Colors.white);
+            showCustomSnackbar(context!, CustomText.loginError);
           } else {
-            // Customize error message for profile API
-            Get.snackbar('Failed', 'Unauthorized access.',
-                backgroundColor: Colors.red, colorText: Colors.white);
-            // Access denied, log the user out.
+            showCustomSnackbar(context!, CustomText.unauthorizedAccess);
             final authController = Get.find<AuthController>();
             authController.logout();
-            // Optionally, you can navigate to the login page or show an error message.
             Get.offAllNamed('/login');
           }
           break;
         case 500:
-        // Internal Server Error (status code 500) - handle the error or show a message
-          Get.snackbar('Server Error', 'Internal server error occurred.',
-              backgroundColor: Colors.red, colorText: Colors.white);
-          if (err.response?.data == "Access denied") {
-            // Access denied, log the user out.
+          showCustomSnackbar(context!, CustomText.internalServerError);
+          if (err.response?.data == CustomText.accessDenied) {
             final authController = Get.find<AuthController>();
             authController.logout();
-            // navigate to the login
             Get.offAllNamed('/login');
           }
-
           break;
         case 400:
-        // Bad Request (status code 400) - handle the error or show a message
-          Get.snackbar('Bad Request', 'Invalid request.',
-              backgroundColor: Colors.red, colorText: Colors.white);
+          showCustomSnackbar(context!, CustomText.invalidRequest);
           break;
         default:
-        // Handle other status codes as needed
-        // You can add more conditions to handle other status codes.
+          showCustomSnackbar(context!, CustomText.genericError);
+      // Handle other status codes as needed
+      // You can add more conditions to handle other status codes.
       }
     }
 
@@ -54,3 +46,5 @@ class ErrorInterceptor extends Interceptor {
     handler.next(err);
   }
 }
+
+

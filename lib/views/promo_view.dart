@@ -8,7 +8,7 @@ class PromoView extends GetView<PromoController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Promotional Items'),
+        title: Text('Promotional campaigns'),
       ),
       body: Obx(
             () {

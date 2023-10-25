@@ -7,7 +7,7 @@ import 'package:peanut/views/trade_list_view.dart';
 
 class AppRoutes {
   static final routes = [
-    GetPage(name: '/', page: () => PromoView()),//AuthView()),
+    GetPage(name: '/', page: () => AuthView()),
     GetPage(name: '/dashboard', page: () => DashboardView()),
     GetPage(name: '/profile', page: () => ProfileView()),
     GetPage(name: '/accountinfo', page: () => TradeListView()), // Corrected import
