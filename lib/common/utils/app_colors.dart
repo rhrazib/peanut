@@ -11,5 +11,4 @@ class AppColors {
 
   static const textColor = Color(0xFF333333);
   static const backgroundColor = Color(0xFFF5F5F5);
-// Add more color constants as needed
 }
