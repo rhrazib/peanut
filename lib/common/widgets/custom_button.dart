@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peanut/common/utils/app_colors.dart';
 
 class CustomButton extends StatelessWidget {
   final String title;
@@ -27,11 +28,11 @@ class CustomButton extends StatelessWidget {
                 : MediaQuery.of(context).size.width / 2,
             height: 120,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: AppColors.blue,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.blue[900]!,
+                  color: AppColors.blue900,
                   offset: Offset(0, 2),
                   blurRadius: 4,
                 ),
@@ -42,14 +43,14 @@ class CustomButton extends StatelessWidget {
               children: [
                 Icon(
                   iconData,
-                  color: Colors.white,
+                  color: AppColors.white,
                   size: 36,
                 ),
                 SizedBox(height: 10),
                 Text(
                   title,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

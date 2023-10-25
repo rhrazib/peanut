@@ -13,7 +13,6 @@ class TradeListView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('User Trades'),
-        backgroundColor: Colors.indigo, // Customize the app bar color
       ),
       body: FutureBuilder<List<TradeModel>>(
         future: tradesController.fetchUserTrades(authController.accessToken.value, authController.accessInput.value),

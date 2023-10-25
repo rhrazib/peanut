@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:peanut/common/utils/app_colors.dart';
 import 'package:peanut/common/utils/custom_snackbar.dart';
 import 'package:peanut/common/utils/custom_txt.dart';
 import 'package:peanut/controllers/auth_controller.dart';
@@ -77,7 +78,7 @@ class AuthView extends StatelessWidget {
                         }
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.blue),
+                        backgroundColor: MaterialStateProperty.all(AppColors.blue),
                         padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
@@ -97,7 +98,7 @@ class AuthView extends StatelessWidget {
                     Obx(() {
                       if (authController.isLoading.value) {
                         return SpinKitFadingCircle(
-                          color: Colors.blue,
+                          color: AppColors.blue,
                           size: 50.0,
                         );
                       } else {

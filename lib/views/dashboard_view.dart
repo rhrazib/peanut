@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:peanut/common/dialog/custom_dialog.dart';
+import 'package:peanut/common/utils/app_colors.dart';
 import 'package:peanut/common/widgets/custom_button.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 
@@ -29,7 +30,7 @@ class DashboardView extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.orange, // Dark blue color
+                  color: AppColors.orange, // Dark blue color
                 ),
               ),
               Text(
@@ -37,8 +38,8 @@ class DashboardView extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 32, // Increase the font size
                   fontWeight: FontWeight.bold,
-                  color: Colors.orange, // Orange color
-                  backgroundColor: Colors.blue, // Use dark blue as the background color
+                  color: AppColors.orange, // Orange color
+                  backgroundColor: AppColors.blue, // Use dark blue as the background color
                 ),
               ),
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:peanut/common/utils/app_colors.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 import 'package:peanut/controllers/profile_controller.dart';
 
@@ -20,7 +21,7 @@ class ProfileView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.white,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),
@@ -83,7 +84,7 @@ class ProfileView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.white,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.5),

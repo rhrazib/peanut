@@ -15,21 +15,18 @@ class ErrorInterceptor extends Interceptor {
 
       switch (statusCode) {
         case 401:
-          if (err.requestOptions.path == '${ApiConfig.baseUrl}/IsAccountCredentialsCorrect') {
+          if (err.requestOptions.path ==
+              '${ApiConfig.baseUrl}/IsAccountCredentialsCorrect') {
             showCustomSnackbar(context!, CustomText.loginError);
           } else {
             showCustomSnackbar(context!, CustomText.unauthorizedAccess);
-            final authController = Get.find<AuthController>();
-            authController.logout();
-            Get.offAllNamed('/login');
+            logout();
           }
           break;
         case 500:
           showCustomSnackbar(context!, CustomText.internalServerError);
           if (err.response?.data == CustomText.accessDenied) {
-            final authController = Get.find<AuthController>();
-            authController.logout();
-            Get.offAllNamed('/login');
+            logout();
           }
           break;
         case 400:
@@ -37,14 +34,17 @@ class ErrorInterceptor extends Interceptor {
           break;
         default:
           showCustomSnackbar(context!, CustomText.genericError);
-      // Handle other status codes as needed
-      // You can add more conditions to handle other status codes.
+        // Handle other status codes as needed
+        // You can add more conditions to handle other status codes.
       }
     }
 
     // Call the original error handler to continue processing the error.
     handler.next(err);
   }
+
+  void logout() {
+    final authController = Get.find<AuthController>();
+    authController.logout();
+  }
 }
-
-
