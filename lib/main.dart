@@ -6,6 +6,8 @@ import 'package:peanut/controllers/profile_controller.dart';
 import 'package:peanut/api/dio.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   DioClient.setupDio();
   Get.put(AuthController());
   Get.put(ProfileController());

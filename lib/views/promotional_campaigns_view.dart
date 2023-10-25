@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:xml/xml.dart';
 import 'dart:convert';
 
-
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -102,6 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class PromoItemCard extends StatelessWidget {
+  String dynamicDomain = "forex-images.ifxdb.com"; // Set the dynamic domain
+
   final String promoKey;
   final Map<String, dynamic> promoItem;
 
@@ -112,30 +113,29 @@ class PromoItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(promoItem['image']);
+    print(promoItem['link']);
+    // Replace the domain in the image URL
+    String imageUrl = promoItem['image']
+        .replaceAll("orex-images.instaforex.com", dynamicDomain);
 
     return Card(
       margin: EdgeInsets.all(16),
       child: Column(
         children: [
-          CachedNetworkImage(
-            imageUrl: promoItem['image'],
-            placeholder: (context, url) =>
-            const Center(child: CircularProgressIndicator()), // Loading indicator
-            errorWidget: (context, url, error) =>
-                Text('Error: $error'), // Display the error message
-            fit: BoxFit.cover,
+          Container(
+            width: 180, // Set the desired width
+            height: 180, // Set the desired height
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+              // Loading indicator
+              errorWidget: (context, url, error) =>
+                  Image.asset('assets/images/img_placeholder.png'),
+              // Replacement image on error
+              fit: BoxFit.cover,
+            ),
           ),
-
-          // Image.network(promoItem['image']),
-          //   CachedNetworkImage(
-          //     imageUrl: promoItem['image'],
-          //     placeholder: (context, url) =>
-          //     const Center(child: CircularProgressIndicator()), // Loading indicator
-          //     errorWidget: (context, url, error) =>
-          //         Image.asset('assets/replacement_image.png'), // Replacement image on error
-          //     fit: BoxFit.cover,
-          //   ),
           Padding(
             padding: EdgeInsets.all(16),
             child: Column(
@@ -146,18 +146,22 @@ class PromoItemCard extends StatelessWidget {
                 SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () async {
-                    final url = promoItem['link'];
-                    if (await canLaunch(url)) {
-                      await launch(url);
-                    } else {
-                      throw 'Could not launch $url';
+                    try {
+                      final url = Uri.encodeFull(promoItem['link']);
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    } catch (e) {
+                      print('Error launching URL: $e');
                     }
                   },
                   child: Text(promoItem['button_text']),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
                       Color(int.parse(promoItem['button_color'].substring(1, 7),
-                          radix: 16) +
+                              radix: 16) +
                           0xFF000000),
                     ),
                   ),
