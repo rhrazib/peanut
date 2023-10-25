@@ -30,7 +30,7 @@ class DashboardView extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.orange, // Dark blue color
+                  color: AppColors.orange,
                 ),
               ),
               Text(
@@ -38,13 +38,12 @@ class DashboardView extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 32, // Increase the font size
                   fontWeight: FontWeight.bold,
-                  color: AppColors.orange, // Orange color
+                  color: AppColors.orange,
                   backgroundColor: AppColors.blue, // Use dark blue as the background color
                 ),
               ),
+              SizedBox(height: 20), // Add spacing
 
-
-             // SizedBox(height: 20),
               Expanded(
                 child: Center(
                   child: GridView.count(

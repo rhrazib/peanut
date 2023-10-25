@@ -20,9 +20,8 @@ class CustomButton extends StatelessWidget {
         elevation: 5,
         borderRadius: BorderRadius.circular(10),
         child: InkWell(
-          onTap: onPressed, // Handles the button press and provides the ripple effect
+          onTap: onPressed,
           child: Container(
-            // Width is defined based on the MediaQuery
             width: MediaQuery.of(context).orientation == Orientation.landscape
                 ? MediaQuery.of(context).size.width / 4
                 : MediaQuery.of(context).size.width / 2,
@@ -50,8 +49,9 @@ class CustomButton extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    color: AppColors.white,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
+                    fontSize: 16,
                   ),
                 ),
               ],
