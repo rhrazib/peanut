@@ -14,16 +14,15 @@ class ErrorInterceptor extends Interceptor {
 
       switch (statusCode) {
         case 401:
-          if (err.requestOptions.path ==
-              '${ApiConfig.baseUrl}/IsAccountCredentialsCorrect') {
-            showCustomSnackbar(context!, CustomText.loginError);
-          } else {
+          if (err.requestOptions.path != CustomText.authApi) {
             showCustomSnackbar(context!, CustomText.unauthorizedAccess);
             logout();
           }
           break;
         case 500:
-          showCustomSnackbar(context!, CustomText.internalServerError);
+          if (err.requestOptions.path != CustomText.authApi) {
+            showCustomSnackbar(context!, CustomText.internalServerError);
+          }
           if (err.response?.data == CustomText.accessDenied) {
             logout();
           }
