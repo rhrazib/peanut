@@ -13,6 +13,7 @@ class TradeListView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('User Trades'),
+        backgroundColor: Colors.indigo, // Customize the app bar color
       ),
       body: FutureBuilder<List<TradeModel>>(
         future: tradesController.fetchUserTrades(authController.accessToken.value, authController.accessInput.value),
@@ -30,17 +31,43 @@ class TradeListView extends StatelessWidget {
               },
               child: Column(
                 children: [
-                  Text('Total Profit: ${tradesController.totalProfit.toStringAsFixed(2)}'),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'Total Profit: \$${tradesController.totalProfit.toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: userTrades!.length,
                       itemBuilder: (context, index) {
                         final trade = userTrades[index];
                         return Card(
+                          elevation: 4, // Add shadow to the card
+                          margin: EdgeInsets.all(8), // Add margin around the card
                           child: ListTile(
-                            title: Text('Symbol: ${trade.symbol}'),
-                            subtitle: Text('Profit: ${trade.profit?.toStringAsFixed(2)}'),
-                            trailing: Text('Type: ${trade.type == 0 ? 'Sell' : 'Buy'}'),
+                            title: Text(
+                              'Symbol: ${trade.symbol}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Text(
+                              'Profit: ${trade.profit?.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                color: trade.profit! > 0 ? Colors.green : Colors.red, // Color based on profit
+                              ),
+                            ),
+                            trailing: Text(
+                              'Type: ${trade.type == 0 ? 'Sell' : 'Buy'}',
+                              style: TextStyle(
+                                color: trade.type == 0 ? Colors.red : Colors.green, // Color based on trade type
+                              ),
+                            ),
                           ),
                         );
                       },
