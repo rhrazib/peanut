@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:peanut/api/dio.dart';
+import 'package:peanut/network/dio.dart';
 import 'package:xml/xml.dart';
 
 class PromoService {

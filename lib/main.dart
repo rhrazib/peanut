@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:peanut/controllers/promo_controller.dart';
+import 'package:peanut/network/dio.dart';
 import 'package:peanut/routes/app_routes.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 import 'package:peanut/controllers/profile_controller.dart';
-import 'package:peanut/api/dio.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

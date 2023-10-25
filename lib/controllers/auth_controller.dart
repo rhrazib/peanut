@@ -5,7 +5,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:peanut/common/utils/custom_snackbar.dart';
 import 'package:peanut/common/utils/custom_txt.dart';
 import 'package:peanut/views/dashboard_view.dart';
-import 'package:peanut/api/api_config.dart';
 import 'package:peanut/services/auth_service.dart';
 
 class AuthController extends GetxController {

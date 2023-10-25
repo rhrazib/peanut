@@ -1,7 +1,6 @@
-import 'package:get/get.dart';
-import 'package:peanut/api/dio.dart';
-import 'package:peanut/api/api_config.dart';
 import 'package:peanut/common/utils/custom_txt.dart';
+import 'package:peanut/network/api_config.dart';
+import 'package:peanut/network/dio.dart';
 
 class AuthService {
   Future<Map<String, dynamic>> login(String login, String password) async {

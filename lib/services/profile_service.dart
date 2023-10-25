@@ -1,6 +1,6 @@
-import 'package:peanut/api/dio.dart';
-import 'package:peanut/api/api_config.dart';
 import 'package:peanut/common/utils/custom_txt.dart';
+import 'package:peanut/network/api_config.dart';
+import 'package:peanut/network/dio.dart';
 
 class ProfileService {
   Future<Map<String, dynamic>> getAccountInformation(

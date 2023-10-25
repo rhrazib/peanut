@@ -3,8 +3,7 @@ import 'package:peanut/common/utils/custom_snackbar.dart';
 import 'package:peanut/common/utils/custom_txt.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
-import 'package:peanut/api/api_config.dart';
+import 'package:peanut/network/api_config.dart';
 
 class ErrorInterceptor extends Interceptor {
   @override

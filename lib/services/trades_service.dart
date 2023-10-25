@@ -1,7 +1,8 @@
-import 'package:peanut/api/dio.dart';
-import 'package:peanut/api/api_config.dart';
+
 import 'package:peanut/common/utils/custom_txt.dart';
 import 'package:peanut/models/trade_model.dart';
+import 'package:peanut/network/api_config.dart';
+import 'package:peanut/network/dio.dart';
 
 class TradesService {
   Future<List<TradeModel>> getUserTrades(
