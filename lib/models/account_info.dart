@@ -41,27 +41,27 @@ class AccountInformation {
     required this.zipCode,
   });
 
-  factory AccountInformation.fromJson(Map<String, dynamic> json) {
-    return AccountInformation(
-      address: json['address'] ?? '',
-      balance: (json['balance'] ?? 0.0).toDouble(),
-      city: json['city'] ?? '',
-      country: json['country'] ?? '',
-      currency: json['currency'] ?? 0,
-      currentTradesCount: json['currentTradesCount'] ?? 0,
-      currentTradesVolume: json['currentTradesVolume'] ?? 0,
-      equity: (json['equity'] ?? 0.0).toDouble(),
-      freeMargin: (json['freeMargin'] ?? 0.0).toDouble(),
-      isAnyOpenTrades: json['isAnyOpenTrades'] ?? false,
-      isSwapFree: json['isSwapFree'] ?? false,
-      leverage: json['leverage'] ?? 0,
-      name: json['name'] ?? '',
-      phone: json['phone'] ?? '',
-      totalTradesCount: json['totalTradesCount'] ?? 0,
-      totalTradesVolume: json['totalTradesVolume'] ?? 0,
-      type: json['type'] ?? 0,
-      verificationLevel: json['verificationLevel'] ?? 0,
-      zipCode: json['zipCode'] ?? '',
-    );
-  }
+  // factory AccountInformation.fromJson(Map<String, dynamic> json) {
+  //   return AccountInformation(
+  //     address: json['address'] ?? '',
+  //     balance: (json['balance'] ?? 0.0).toDouble(),
+  //     city: json['city'] ?? '',
+  //     country: json['country'] ?? '',
+  //     currency: json['currency'] ?? 0,
+  //     currentTradesCount: json['currentTradesCount'] ?? 0,
+  //     currentTradesVolume: json['currentTradesVolume'] ?? 0,
+  //     equity: (json['equity'] ?? 0.0).toDouble(),
+  //     freeMargin: (json['freeMargin'] ?? 0.0).toDouble(),
+  //     isAnyOpenTrades: json['isAnyOpenTrades'] ?? false,
+  //     isSwapFree: json['isSwapFree'] ?? false,
+  //     leverage: json['leverage'] ?? 0,
+  //     name: json['name'] ?? '',
+  //     phone: json['phone'] ?? '',
+  //     totalTradesCount: json['totalTradesCount'] ?? 0,
+  //     totalTradesVolume: json['totalTradesVolume'] ?? 0,
+  //     type: json['type'] ?? 0,
+  //     verificationLevel: json['verificationLevel'] ?? 0,
+  //     zipCode: json['zipCode'] ?? '',
+  //   );
+  // }
 }
