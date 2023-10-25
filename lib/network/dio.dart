@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:peanut/network/error_interceptor.dart'; // Import Flutter's BuildContext
+import 'package:peanut/network/error_interceptor.dart';
 
 class DioClient {
   static Dio dio = Dio();

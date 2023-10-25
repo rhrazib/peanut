@@ -19,93 +19,106 @@ class AuthView extends StatelessWidget {
       // The user is already authenticated; redirect to the dashboard
       return DashboardView();
     }
+
+    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Card(
-            elevation: 8.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
-            ),
+        child: SingleChildScrollView(
+          child: Center(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextFormField(
-                      controller: loginController,
-                      decoration: InputDecoration(
-                        labelText: CustomText.loginLabel,
-                        prefixIcon: Icon(Icons.person),
-                      ),
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return CustomText.enterLogin;
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 20),
-                    TextFormField(
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                        labelText: CustomText.passwordLabel,
-                        prefixIcon: Icon(Icons.lock),
-                      ),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value?.isEmpty ?? true) {
-                          return CustomText.enterPassword;
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async {
-                        // Hide the keyboard
-                        FocusScope.of(context).unfocus();
-                        if (_formKey.currentState?.validate() == true) {
-                          final isConnected = await authController.checkInternetConnection();
-                          if (!isConnected) {
-                            showCustomSnackbar(context, CustomText.noInternetMessage);
-                            return;
-                          }
-                          authController.login(context, loginController.text ?? '', passwordController.text ?? '');
-                        }
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(AppColors.blue),
-                        padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
+              padding: EdgeInsets.all(16.0),
+              child: Card(
+                elevation: 8.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextFormField(
+                          controller: loginController,
+                          decoration: InputDecoration(
+                            labelText: CustomText.loginLabel,
+                            prefixIcon: Icon(Icons.person),
+                          ),
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return CustomText.enterLogin;
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          controller: passwordController,
+                          decoration: InputDecoration(
+                            labelText: CustomText.passwordLabel,
+                            prefixIcon: Icon(Icons.lock),
+                          ),
+                          obscureText: true,
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return CustomText.enterPassword;
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () async {
+                            // Hide the keyboard
+                            FocusScope.of(context).unfocus();
+                            if (_formKey.currentState?.validate() == true) {
+                              final isConnected = await authController.checkInternetConnection();
+                              if (!isConnected) {
+                                showCustomSnackbar(context, CustomText.noInternetMessage);
+                                return;
+                              }
+                              authController.login(context, loginController.text ?? '', passwordController.text ?? '');
+                            }
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(AppColors.blue),
+                            padding: MaterialStateProperty.all(
+                              EdgeInsets.symmetric(
+                                horizontal: isPortrait ? 20.0 : 40.0, // Adjust padding based on orientation
+                                vertical: 10.0,
+                              ),
+                            ),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                            ),
+                          ),
+                          child: Text(
+                            CustomText.loginButton,
+                            style: TextStyle(
+                              fontSize: isPortrait ? 18.0 : 24.0, // Adjust font size based on orientation
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                      child: Text(
-                        CustomText.loginButton,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                        SizedBox(height: 10),
+                        Obx(() {
+                          if (authController.isLoading.value) {
+                            return SpinKitFadingCircle(
+                              color: AppColors.blue,
+                              size: isPortrait ? 50.0 : 80.0, // Adjust loading spinner size based on orientation
+                            );
+                          } else {
+                            return Container();
+                          }
+                        }),
+                      ],
                     ),
-                    SizedBox(height: 10),
-                    Obx(() {
-                      if (authController.isLoading.value) {
-                        return SpinKitFadingCircle(
-                          color: AppColors.blue,
-                          size: 50.0,
-                        );
-                      } else {
-                        return Container();
-                      }
-                    }),
-                  ],
+                  ),
                 ),
               ),
             ),

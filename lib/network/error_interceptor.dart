@@ -34,11 +34,10 @@ class ErrorInterceptor extends Interceptor {
         default:
           showCustomSnackbar(context!, CustomText.genericError);
         // Handle other status codes as needed
-        // You can add more conditions to handle other status codes.
       }
     }
 
-    // Call the original error handler to continue processing the error.
+    // Call the original error handlerr.
     handler.next(err);
   }
 
