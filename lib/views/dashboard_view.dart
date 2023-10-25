@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:peanut/common/dialog/custom_dialog.dart';
+import 'package:peanut/common/dialog/custom_dialog.dart'; // Update this import if needed
 import 'package:peanut/common/utils/app_colors.dart';
-import 'package:peanut/common/widgets/custom_button.dart';
+import 'package:peanut/common/widgets/custom_button.dart'; // Update this import if needed
 import 'package:peanut/controllers/auth_controller.dart';
 
 class DashboardView extends StatelessWidget {
@@ -30,7 +30,7 @@ class DashboardView extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.orange,
+                  color: AppColors.blue,
                 ),
               ),
               Text(
@@ -42,7 +42,8 @@ class DashboardView extends StatelessWidget {
                   backgroundColor: AppColors.blue, // Use dark blue as the background color
                 ),
               ),
-              SizedBox(height: 20), // Add spacing
+
+              // SizedBox(height: 20), // Add spacing
 
               Expanded(
                 child: Center(

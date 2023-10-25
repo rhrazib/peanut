@@ -9,11 +9,12 @@ class CustomText {
   static const String enterLogin = 'Please enter your login.';
   static const String enterPassword = 'Please enter your password.';
 
-  static const String incorrectCredentials = 'Incorrect login or password';
+  static const String incorrectCredentials =
+      'Incorrect login or password, try again';
   static const String networkError = 'Network error occurred';
 
   static const String loginFailed = 'Login Failed';
-  static const String loginError = 'Incorrect login or password.';
+  static const String loginError = 'Incorrect login or password, try again.';
   static const String unauthorizedAccess = 'Unauthorized access.';
   static const String serverError = 'Server Error';
   static const String internalServerError = 'Internal server error occurred.';
@@ -31,5 +32,14 @@ class CustomText {
   static const String unableToFetchLastUserTrades =
       'Unable to fetch user trades';
 
-  static const String authApi = '${ApiConfig.baseUrl}/IsAccountCredentialsCorrect';
+  static const String authApi =
+      '${ApiConfig.baseUrl}/IsAccountCredentialsCorrect';
+  static const String promotionalCampaigns = 'Promotional campaigns';
+  static const String userProfile = 'User Profile';
+  static const String pleaseLoginToViewInfo =
+      'Please log in to view user information.';
+
+  static const String lastFourNumbersOfPhone = 'Last Four Numbers of Phone';
+
+  static const String userInformation = 'User Information';
 }

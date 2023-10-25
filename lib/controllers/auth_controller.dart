@@ -27,25 +27,24 @@ class AuthController extends GetxController {
     final storedToken = await _storage.read(key: accessTokenKey);
     final loginInput = await _storage.read(key: loginKey);
 
-    final isExpired =
-        storedToken != null ? await isTokenExpired(storedToken) : true;
+    // final isExpired = storedToken != null ? await isTokenExpired(storedToken) : true;
 
-    if (!isExpired && loginInput != null) {
+    if (storedToken != null && loginInput != null) {
       accessToken.value = storedToken;
       accessInput.value = loginInput;
       Get.off(DashboardView()); // Redirect to the dashboard
     }
   }
 
-  Future<bool> isTokenExpired(String token) async {
-    final expiration = await _storage.read(key: tokenExpirationKey);
-    if (expiration != null) {
-      final expiryTime = DateTime.parse(expiration);
-      final currentTime = DateTime.now();
-      return currentTime.isAfter(expiryTime);
-    }
-    return true; // Token expiration information is missing, consider it expired.
-  }
+  // Future<bool> isTokenExpired(String token) async {// todo check Token expiration
+  //   final expiration = await _storage.read(key: tokenExpirationKey);
+  //   if (expiration != null) {
+  //     final expiryTime = DateTime.parse(expiration);
+  //     final currentTime = DateTime.now();
+  //     return currentTime.isAfter(expiryTime);
+  //   }
+  //   return true;
+  // }
 
   Future<bool> checkInternetConnection() async {
     final result = await _connectivity.checkConnectivity();
@@ -89,8 +88,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> logout() async {
-    await _storage.delete(key: accessTokenKey);
-    await _storage.delete(key: tokenExpirationKey);
+    await _storage.deleteAll();
     accessToken.value = '';
     accessInput.value = '';
     Get.offAllNamed('/login');

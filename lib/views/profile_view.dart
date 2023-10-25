@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:peanut/common/utils/app_colors.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 import 'package:peanut/controllers/profile_controller.dart';
+import 'package:peanut/common/utils/custom_txt.dart';
 
 class ProfileView extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
@@ -12,7 +13,7 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Profile'),
+        title: Text(CustomText.userProfile),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -29,7 +30,7 @@ class ProfileView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'User Information',
+                      CustomText.userInformation,
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -86,7 +87,7 @@ class ProfileView extends StatelessWidget {
                       )
                     else
                       Text(
-                        'Please log in to view user information.',
+                        CustomText.pleaseLoginToViewInfo,
                         style: TextStyle(fontSize: 18, color: Colors.black87),
                       ),
                   ],
@@ -117,11 +118,11 @@ class ProfileView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Last Four Numbers of Phone',
+                          CustomText.lastFourNumbersOfPhone,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.blue,
+                              color: AppColors.blue,
                             ),
                           ),
                           SizedBox(height: 8),

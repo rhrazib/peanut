@@ -6,7 +6,7 @@ import 'package:peanut/models/trade_model.dart';
 
 class TradeListView extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
-  final TradesController tradesController = Get.put(TradesController());
+  final TradesController tradesController = Get.find<TradesController>();
 
   @override
   Widget build(BuildContext context) {

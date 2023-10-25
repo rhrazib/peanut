@@ -5,13 +5,14 @@ import 'package:peanut/network/dio.dart';
 import 'package:peanut/routes/app_routes.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 import 'package:peanut/controllers/profile_controller.dart';
-
+import 'package:peanut/controllers/trades_controller.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  DioClient.setupDio();
+  DioClient.setupDio(); //setup dio client
   Get.put(AuthController());
   Get.put(ProfileController());
+  Get.put(TradesController());
   Get.put(PromoController());
 
   runApp(MyApp());
