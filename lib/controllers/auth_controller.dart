@@ -66,7 +66,7 @@ class AuthController extends GetxController {
       final response = await authService.login(login, password);
 
       if (response.containsKey('error')) {
-        showCustomSnackbar(context, CustomText.loginFailed);
+        showCustomSnackbar(context, CustomText.loginError);
       } else {
         await _storage.write(key: accessTokenKey, value: response['token']);
         await _storage.write(key: loginKey, value: login);

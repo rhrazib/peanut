@@ -1,7 +1,9 @@
+import 'package:peanut/network/api_config.dart';
+
 class CustomText {
   static const String loginLabel = 'Login';
   static const String passwordLabel = 'Password';
-  static const String loginButton = 'Login';
+  static const String loginButton = ' Login ';
   static const String noInternetMessage =
       'No Internet, Please check your internet connection.';
   static const String enterLogin = 'Please enter your login.';
@@ -28,4 +30,6 @@ class CustomText {
       'Unable to fetch last four numbers';
   static const String unableToFetchLastUserTrades =
       'Unable to fetch user trades';
+
+  static const String authApi = '${ApiConfig.baseUrl}/IsAccountCredentialsCorrect';
 }

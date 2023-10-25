@@ -60,23 +60,23 @@ class ProfileView extends StatelessWidget {
                               children: [
                                 ListTile(
                                   leading: Icon(Icons.person),
-                                  title: Text('User Name: $name', style: TextStyle(color: Colors.black87)),
+                                  title: Text('Name: $name', style: TextStyle(color: Colors.black87)),
                                 ),
                                 ListTile(
                                   leading: Icon(Icons.location_on),
-                                  title: Text('User Address: $address', style: TextStyle(color: Colors.black87)),
+                                  title: Text('Address: $address', style: TextStyle(color: Colors.black87)),
                                 ),
                                 ListTile(
                                   leading: Icon(Icons.attach_money),
-                                  title: Text('User Balance: $balance', style: TextStyle(color: Colors.black87)),
+                                  title: Text('Balance: $balance', style: TextStyle(color: Colors.black87)),
                                 ),
                                 ListTile(
                                   leading: Icon(Icons.location_city),
-                                  title: Text('User City: $city', style: TextStyle(color: Colors.black87)),
+                                  title: Text('City: $city', style: TextStyle(color: Colors.black87)),
                                 ),
                                 ListTile(
                                   leading: Icon(Icons.public),
-                                  title: Text('User Country: $country', style: TextStyle(color: Colors.black87)),
+                                  title: Text('Country: $country', style: TextStyle(color: Colors.black87)),
                                 ),
                                 // Add more properties as needed.
                               ],
