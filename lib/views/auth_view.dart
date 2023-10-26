@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:peanut/common/utils/app_colors.dart';
-import 'package:peanut/common/utils/custom_snackbar.dart';
-import 'package:peanut/common/utils/custom_txt.dart';
+import 'package:peanut/common/utils/app_snackbar.dart';
+import 'package:peanut/common/utils/app_txt.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 import 'package:peanut/views/dashboard_view.dart';
 
@@ -44,12 +44,12 @@ class AuthView extends StatelessWidget {
                         TextFormField(
                           controller: loginController,
                           decoration: InputDecoration(
-                            labelText: CustomText.loginLabel,
+                            labelText: AppText.loginLabel,
                             prefixIcon: Icon(Icons.person),
                           ),
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
-                              return CustomText.enterLogin;
+                              return AppText.enterLogin;
                             }
                             return null;
                           },
@@ -58,13 +58,13 @@ class AuthView extends StatelessWidget {
                         TextFormField(
                           controller: passwordController,
                           decoration: InputDecoration(
-                            labelText: CustomText.passwordLabel,
+                            labelText: AppText.passwordLabel,
                             prefixIcon: Icon(Icons.lock),
                           ),
                           obscureText: true,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
-                              return CustomText.enterPassword;
+                              return AppText.enterPassword;
                             }
                             return null;
                           },
@@ -77,7 +77,7 @@ class AuthView extends StatelessWidget {
                             if (_formKey.currentState?.validate() == true) {
                               final isConnected = await authController.checkInternetConnection();
                               if (!isConnected) {
-                                showCustomSnackbar(context, CustomText.noInternetMessage);
+                                showCustomSnackbar(context, AppText.noInternetMessage);
                                 return;
                               }
                               authController.login(context, loginController.text ?? '', passwordController.text ?? '');
@@ -98,7 +98,7 @@ class AuthView extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            CustomText.loginButton,
+                            AppText.loginButton,
                             style: TextStyle(
                               fontSize: isPortrait ? 18.0 : 24.0, // Adjust font size based on orientation
                               fontWeight: FontWeight.bold,

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:peanut/controllers/promo_controller.dart';
 import 'package:peanut/views/promo_item_card.dart';
-import 'package:peanut/common/utils/custom_txt.dart';
+import 'package:peanut/common/utils/app_txt.dart';
 class PromoView extends GetView<PromoController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(CustomText.promotionalCampaigns),
+        title: Text(AppText.promotionalCampaigns),
       ),
       body: Obx(
             () {

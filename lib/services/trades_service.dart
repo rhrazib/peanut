@@ -1,5 +1,5 @@
 
-import 'package:peanut/common/utils/custom_txt.dart';
+import 'package:peanut/common/utils/app_txt.dart';
 import 'package:peanut/models/trade_model.dart';
 import 'package:peanut/network/api_config.dart';
 import 'package:peanut/network/dio.dart';
@@ -39,7 +39,7 @@ class TradesService {
 
         return trades;
       } else {
-        throw CustomText.unableToFetchLastUserTrades;
+        throw AppText.unableToFetchLastUserTrades;
       }
     } catch (e) {
       throw 'Error: $e';

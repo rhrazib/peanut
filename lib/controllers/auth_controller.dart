@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:peanut/common/utils/custom_snackbar.dart';
-import 'package:peanut/common/utils/custom_txt.dart';
+import 'package:peanut/common/utils/app_snackbar.dart';
+import 'package:peanut/common/utils/app_txt.dart';
 import 'package:peanut/views/dashboard_view.dart';
 import 'package:peanut/services/auth_service.dart';
 
@@ -27,24 +27,12 @@ class AuthController extends GetxController {
     final storedToken = await _storage.read(key: accessTokenKey);
     final loginInput = await _storage.read(key: loginKey);
 
-    // final isExpired = storedToken != null ? await isTokenExpired(storedToken) : true;
-
     if (storedToken != null && loginInput != null) {
       accessToken.value = storedToken;
       accessInput.value = loginInput;
       Get.off(DashboardView()); // Redirect to the dashboard
     }
   }
-
-  // Future<bool> isTokenExpired(String token) async {// todo check Token expiration
-  //   final expiration = await _storage.read(key: tokenExpirationKey);
-  //   if (expiration != null) {
-  //     final expiryTime = DateTime.parse(expiration);
-  //     final currentTime = DateTime.now();
-  //     return currentTime.isAfter(expiryTime);
-  //   }
-  //   return true;
-  // }
 
   Future<bool> checkInternetConnection() async {
     final result = await _connectivity.checkConnectivity();
@@ -57,7 +45,7 @@ class AuthController extends GetxController {
     try {
       final isConnected = await checkInternetConnection();
       if (!isConnected) {
-        showCustomSnackbar(context, CustomText.noInternetMessage);
+        showCustomSnackbar(context, AppText.noInternetMessage);
         isLoading.value = false;
         return;
       }
@@ -65,7 +53,7 @@ class AuthController extends GetxController {
       final response = await authService.login(login, password);
 
       if (response.containsKey('error')) {
-        showCustomSnackbar(context, CustomText.loginError);
+        showCustomSnackbar(context, AppText.loginError);
       } else {
         await _storage.write(key: accessTokenKey, value: response['token']);
         await _storage.write(key: loginKey, value: login);
@@ -81,7 +69,7 @@ class AuthController extends GetxController {
         Get.toNamed('/dashboard');
       }
     } catch (e) {
-      showCustomSnackbar(context, CustomText.networkErrorMessage);
+      showCustomSnackbar(context, AppText.networkErrorMessage);
     } finally {
       isLoading.value = false;
     }

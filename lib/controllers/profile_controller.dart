@@ -3,7 +3,7 @@ import 'package:peanut/services/profile_service.dart';
 
 class ProfileController extends GetxController {
   final ProfileService profileService =
-      ProfileService(); // Create an instance of the service
+      ProfileService(); // Create an instance of the profile service
 
   Future<Map<String, dynamic>> getAccountInformation(
       String accessToken, String login) async {

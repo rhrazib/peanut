@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:peanut/common/utils/custom_snackbar.dart';
-import 'package:peanut/common/utils/custom_txt.dart';
+import 'package:peanut/common/utils/app_snackbar.dart';
+import 'package:peanut/common/utils/app_txt.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:peanut/network/api_config.dart';
@@ -14,24 +14,24 @@ class ErrorInterceptor extends Interceptor {
 
       switch (statusCode) {
         case 401:
-          if (err.requestOptions.path != CustomText.authApi) {
-            showCustomSnackbar(context!, CustomText.unauthorizedAccess);
+          if (err.requestOptions.path != AppText.authApi) {
+            showCustomSnackbar(context!, AppText.unauthorizedAccess);
             logout();
           }
           break;
         case 500:
-          if (err.requestOptions.path != CustomText.authApi) {
-            showCustomSnackbar(context!, CustomText.internalServerError);
+          if (err.requestOptions.path != AppText.authApi) {
+            showCustomSnackbar(context!, AppText.internalServerError);
           }
-          if (err.response?.data == CustomText.accessDenied) {
+          if (err.response?.data == AppText.accessDenied) {
             logout();
           }
           break;
         case 400:
-          showCustomSnackbar(context!, CustomText.invalidRequest);
+          showCustomSnackbar(context!, AppText.invalidRequest);
           break;
         default:
-          showCustomSnackbar(context!, CustomText.genericError);
+          showCustomSnackbar(context!, AppText.genericError);
         // Handle other status codes as needed
       }
     }

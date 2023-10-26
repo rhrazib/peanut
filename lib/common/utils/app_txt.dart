@@ -1,6 +1,6 @@
 import 'package:peanut/network/api_config.dart';
 
-class CustomText {
+class AppText {
   static const String loginLabel = 'Login';
   static const String passwordLabel = 'Password';
   static const String loginButton = ' Login ';
@@ -40,6 +40,5 @@ class CustomText {
       'Please log in to view user information.';
 
   static const String lastFourNumbersOfPhone = 'Last Four Numbers of Phone';
-
   static const String userInformation = 'User Information';
 }

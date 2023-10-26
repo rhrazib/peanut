@@ -1,4 +1,4 @@
-import 'package:peanut/common/utils/custom_txt.dart';
+import 'package:peanut/common/utils/app_txt.dart';
 import 'package:peanut/network/api_config.dart';
 import 'package:peanut/network/dio.dart';
 
@@ -17,10 +17,10 @@ class AuthService {
         final Map<String, dynamic> data = response.data;
         return data;
       } else {
-        return {'error': CustomText.incorrectCredentials};
+        return {'error': AppText.incorrectCredentials};
       }
     } catch (e) {
-      return {'error': CustomText.networkError};
+      return {'error': AppText.networkError};
     }
   }
 }

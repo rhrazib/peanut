@@ -1,4 +1,4 @@
-import 'package:peanut/common/utils/custom_txt.dart';
+import 'package:peanut/common/utils/app_txt.dart';
 import 'package:peanut/network/api_config.dart';
 import 'package:peanut/network/dio.dart';
 
@@ -18,7 +18,7 @@ class ProfileService {
         final Map<String, dynamic> data = response.data;
         return data;
       } else {
-        return {'error': CustomText.unableToFetch};
+        return {'error': AppText.unableToFetch};
       }
     } catch (e) {
       return {'error': 'Error: $e'};
@@ -40,7 +40,7 @@ class ProfileService {
         final String lastFourNumbers = response.data;
         return lastFourNumbers;
       } else {
-        return CustomText.unableToFetchLastFourNumbers;
+        return AppText.unableToFetchLastFourNumbers;
       }
     } catch (e) {
       return 'Error: $e';

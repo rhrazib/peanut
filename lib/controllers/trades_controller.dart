@@ -18,9 +18,6 @@ class TradesController extends GetxController {
     try {
       final trades = await tradesService.getUserTrades(accessToken, login);
       userTradesList.assignAll(trades);
-
-      // Calculate total profit
-      //  final total = trades.fold<double>(0.0, (sum, trade) => sum + (trade.profit ?? 0));
       // Calculate total profit in USD
       final total = trades.fold<double>(0.0, (sum, trade) {
         // Convert profit to USD based on the symbol
