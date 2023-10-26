@@ -16,12 +16,12 @@ class AuthView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (authController.accessToken.isNotEmpty) {
-      // The user is already authenticated; redirect to the dashboard
+      // If authenticated then redirect to the dashboard
       return DashboardView();
     }
 
-    final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-    final screenSize = MediaQuery.of(context).size;
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
 
     return Scaffold(
       body: Center(
@@ -75,19 +75,26 @@ class AuthView extends StatelessWidget {
                             // Hide the keyboard
                             FocusScope.of(context).unfocus();
                             if (_formKey.currentState?.validate() == true) {
-                              final isConnected = await authController.checkInternetConnection();
+                              final isConnected = await authController
+                                  .checkInternetConnection();
                               if (!isConnected) {
-                                showCustomSnackbar(context, AppText.noInternetMessage);
+                                showAppSnackbar(
+                                    context, AppText.noInternetMessage);
                                 return;
                               }
-                              authController.login(context, loginController.text ?? '', passwordController.text ?? '');
+                              authController.login(
+                                  context,
+                                  loginController.text ?? '',
+                                  passwordController.text ?? '');
                             }
                           },
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(AppColors.blue),
+                            backgroundColor:
+                                MaterialStateProperty.all(AppColors.blue),
                             padding: MaterialStateProperty.all(
                               EdgeInsets.symmetric(
-                                horizontal: isPortrait ? 20.0 : 40.0, // Adjust padding based on orientation
+                                horizontal: isPortrait ? 20.0 : 40.0,
+                                // Adjust padding based on orientation
                                 vertical: 10.0,
                               ),
                             ),
@@ -100,7 +107,8 @@ class AuthView extends StatelessWidget {
                           child: Text(
                             AppText.loginButton,
                             style: TextStyle(
-                              fontSize: isPortrait ? 18.0 : 24.0, // Adjust font size based on orientation
+                              fontSize: isPortrait ? 18.0 : 24.0,
+                              // Adjust font size based on orientation
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -110,7 +118,9 @@ class AuthView extends StatelessWidget {
                           if (authController.isLoading.value) {
                             return SpinKitFadingCircle(
                               color: AppColors.blue,
-                              size: isPortrait ? 50.0 : 80.0, // Adjust loading spinner size based on orientation
+                              size: isPortrait
+                                  ? 50.0
+                                  : 80.0, // Adjust loading spinner size based on orientation
                             );
                           } else {
                             return Container();

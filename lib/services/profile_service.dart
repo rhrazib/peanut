@@ -1,9 +1,10 @@
 import 'package:peanut/common/utils/app_txt.dart';
+import 'package:peanut/models/account_info.dart';
 import 'package:peanut/network/api_config.dart';
 import 'package:peanut/network/dio.dart';
 
 class ProfileService {
-  Future<Map<String, dynamic>> getAccountInformation(
+  Future<AccountInformation> getAccountInformation(
       String accessToken, String login) async {
     try {
       final response = await DioClient.dio.post(
@@ -16,12 +17,12 @@ class ProfileService {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = response.data;
-        return data;
+        return AccountInformation.fromJson(data);
       } else {
-        return {'error': AppText.unableToFetch};
+        throw Exception(AppText.unableToFetch);
       }
     } catch (e) {
-      return {'error': 'Error: $e'};
+      throw Exception('Error: $e');
     }
   }
 
@@ -40,10 +41,10 @@ class ProfileService {
         final String lastFourNumbers = response.data;
         return lastFourNumbers;
       } else {
-        return AppText.unableToFetchLastFourNumbers;
+        throw Exception(AppText.unableToFetchLastFourNumbers);
       }
     } catch (e) {
-      return 'Error: $e';
+      throw Exception('Error: $e');
     }
   }
 }

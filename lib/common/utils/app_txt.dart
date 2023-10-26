@@ -41,4 +41,5 @@ class AppText {
 
   static const String lastFourNumbersOfPhone = 'Last Four Numbers of Phone';
   static const String userInformation = 'User Information';
+  static const String couldNotLaunch = 'Could not launch';
 }

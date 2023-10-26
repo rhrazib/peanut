@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:peanut/common/utils/app_colors.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 import 'package:peanut/controllers/trades_controller.dart';
 import 'package:peanut/models/trade_model.dart';
@@ -18,7 +20,10 @@ class TradeListView extends StatelessWidget {
         future: tradesController.fetchUserTrades(authController.accessToken.value, authController.accessInput.value),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: SpinKitFadingCircle(
+                color: AppColors.blue,
+                size: 50.0
+            ),);
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {

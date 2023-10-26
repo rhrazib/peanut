@@ -1,67 +1,64 @@
 class AccountInformation {
-  final String address;
-  final double balance;
-  final String city;
-  final String country;
-  final int currency;
-  final int currentTradesCount;
-  final int currentTradesVolume;
-  final double equity;
-  final double freeMargin;
-  final bool isAnyOpenTrades;
-  final bool isSwapFree;
-  final int leverage;
-  final String name;
-  final String phone;
-  final int totalTradesCount;
-  final int totalTradesVolume;
-  final int type;
-  final int verificationLevel;
-  final String zipCode;
+  String? address;
+  double? balance;
+  String? city;
+  String? country;
+  int? currency;
+  int? currentTradesCount;
+  double? currentTradesVolume;
+  double? equity;
+  double? freeMargin;
+  bool? isAnyOpenTrades;
+  bool? isSwapFree;
+  int? leverage;
+  String? name;
+  String? phone;
+  int? totalTradesCount;
+  double? totalTradesVolume;
+  int? type;
+  int? verificationLevel;
+  String? zipCode;
 
-  AccountInformation({
-    required this.address,
-    required this.balance,
-    required this.city,
-    required this.country,
-    required this.currency,
-    required this.currentTradesCount,
-    required this.currentTradesVolume,
-    required this.equity,
-    required this.freeMargin,
-    required this.isAnyOpenTrades,
-    required this.isSwapFree,
-    required this.leverage,
-    required this.name,
-    required this.phone,
-    required this.totalTradesCount,
-    required this.totalTradesVolume,
-    required this.type,
-    required this.verificationLevel,
-    required this.zipCode,
-  });
+  AccountInformation(
+      {this.address,
+        this.balance,
+        this.city,
+        this.country,
+        this.currency,
+        this.currentTradesCount,
+        this.currentTradesVolume,
+        this.equity,
+        this.freeMargin,
+        this.isAnyOpenTrades,
+        this.isSwapFree,
+        this.leverage,
+        this.name,
+        this.phone,
+        this.totalTradesCount,
+        this.totalTradesVolume,
+        this.type,
+        this.verificationLevel,
+        this.zipCode});
 
-  // factory AccountInformation.fromJson(Map<String, dynamic> json) {
-  //   return AccountInformation(
-  //     address: json['address'] ?? '',
-  //     balance: (json['balance'] ?? 0.0).toDouble(),
-  //     city: json['city'] ?? '',
-  //     country: json['country'] ?? '',
-  //     currency: json['currency'] ?? 0,
-  //     currentTradesCount: json['currentTradesCount'] ?? 0,
-  //     currentTradesVolume: json['currentTradesVolume'] ?? 0,
-  //     equity: (json['equity'] ?? 0.0).toDouble(),
-  //     freeMargin: (json['freeMargin'] ?? 0.0).toDouble(),
-  //     isAnyOpenTrades: json['isAnyOpenTrades'] ?? false,
-  //     isSwapFree: json['isSwapFree'] ?? false,
-  //     leverage: json['leverage'] ?? 0,
-  //     name: json['name'] ?? '',
-  //     phone: json['phone'] ?? '',
-  //     totalTradesCount: json['totalTradesCount'] ?? 0,
-  //     totalTradesVolume: json['totalTradesVolume'] ?? 0,
-  //     type: json['type'] ?? 0,
-  //     verificationLevel: json['verificationLevel'] ?? 0,
-  //     zipCode: json['zipCode'] ?? '',
-  //   );
-  // }
+  AccountInformation.fromJson(Map<String, dynamic> json) {
+    address = json['address'];
+    balance = json['balance'];
+    city = json['city'];
+    country = json['country'];
+    currency = json['currency'];
+    currentTradesCount = json['currentTradesCount'];
+    currentTradesVolume = json['currentTradesVolume'];
+    equity = json['equity'];
+    freeMargin = json['freeMargin'];
+    isAnyOpenTrades = json['isAnyOpenTrades'];
+    isSwapFree = json['isSwapFree'];
+    leverage = json['leverage'];
+    name = json['name'];
+    phone = json['phone'];
+    totalTradesCount = json['totalTradesCount'];
+    totalTradesVolume = json['totalTradesVolume'];
+    type = json['type'];
+    verificationLevel = json['verificationLevel'];
+    zipCode = json['zipCode'];
+  }
 }

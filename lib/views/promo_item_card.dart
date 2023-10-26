@@ -1,12 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:peanut/common/utils/app_colors.dart';
+import 'package:peanut/common/utils/app_snackbar.dart';
+import 'package:peanut/common/utils/app_txt.dart';
 import 'package:peanut/controllers/promo_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PromoItemCard extends StatelessWidget {
   final PromoController controller = Get.find(); // Access the controller
-  final String dynamicDomain = "forex-images.ifxdb.com"; // Set the dynamic domain
+  final String dynamicDomain =
+      "forex-images.ifxdb.com"; // Set the dynamic domain
   final String promoKey;
   final int index;
 
@@ -32,8 +37,9 @@ class PromoItemCard extends StatelessWidget {
               height: 180,
               child: CachedNetworkImage(
                 imageUrl: imageUrl,
-                placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator()),
+                placeholder: (context, url) => const Center(
+                  child: SpinKitFadingCircle(color: AppColors.blue, size: 50.0),
+                ),
                 errorWidget: (context, url, error) =>
                     Image.asset('assets/images/img_placeholder.png'),
                 fit: BoxFit.cover,
@@ -45,7 +51,7 @@ class PromoItemCard extends StatelessWidget {
                 children: [
                   Text(promoItem['text'], style: TextStyle(fontSize: 16)),
                   SizedBox(height: 8),
-                 // Text('Link: ${promoItem['link']}'),
+                  // Text('Link: ${promoItem['link']}'),
                   SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () async {
@@ -54,6 +60,7 @@ class PromoItemCard extends StatelessWidget {
                         if (await canLaunch(url)) {
                           await launch(url);
                         } else {
+                          showAppSnackbar(context, AppText.couldNotLaunch);
                           throw 'Could not launch $url';
                         }
                       } catch (e) {
@@ -63,7 +70,10 @@ class PromoItemCard extends StatelessWidget {
                     child: Text(promoItem['button_text']),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        Color(int.parse(promoItem['button_color'].substring(1, 7), radix: 16) + 0xFF000000),
+                        Color(int.parse(
+                                promoItem['button_color'].substring(1, 7),
+                                radix: 16) +
+                            0xFF000000),
                       ),
                     ),
                   ),

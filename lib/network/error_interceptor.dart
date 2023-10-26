@@ -15,23 +15,23 @@ class ErrorInterceptor extends Interceptor {
       switch (statusCode) {
         case 401:
           if (err.requestOptions.path != AppText.authApi) {
-            showCustomSnackbar(context!, AppText.unauthorizedAccess);
+            showAppSnackbar(context!, AppText.unauthorizedAccess);
             logout();
           }
           break;
         case 500:
           if (err.requestOptions.path != AppText.authApi) {
-            showCustomSnackbar(context!, AppText.internalServerError);
+            showAppSnackbar(context!, AppText.internalServerError);
           }
           if (err.response?.data == AppText.accessDenied) {
             logout();
           }
           break;
         case 400:
-          showCustomSnackbar(context!, AppText.invalidRequest);
+          showAppSnackbar(context!, AppText.invalidRequest);
           break;
         default:
-          showCustomSnackbar(context!, AppText.genericError);
+          showAppSnackbar(context!, AppText.genericError);
         // Handle other status codes as needed
       }
     }

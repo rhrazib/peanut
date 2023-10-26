@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:peanut/common/utils/app_colors.dart';
 import 'package:peanut/controllers/auth_controller.dart';
 import 'package:peanut/controllers/profile_controller.dart';
 import 'package:peanut/common/utils/app_txt.dart';
+import 'package:peanut/models/account_info.dart';
 
 class ProfileView extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
@@ -39,45 +41,54 @@ class ProfileView extends StatelessWidget {
                     ),
                     SizedBox(height: 16),
                     if (authController.accessToken.isNotEmpty)
-                      FutureBuilder<Map<String, dynamic>>(
+                      FutureBuilder<AccountInformation>(
                         future: profileController.getAccountInformation(
                             authController.accessToken.value,
                             authController.accessInput.value),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                                child: SpinKitFadingCircle(
+                                    color: AppColors.blue, size: 50.0));
                           } else if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}', style: TextStyle(color: Colors.red));
+                            return Text('Error: ${snapshot.error}',
+                                style: TextStyle(color: Colors.red));
                           } else {
                             final accountInfo = snapshot.data;
-                            final name = accountInfo?['name'] ?? 'N/A';
-                            final address = accountInfo?['address'] ?? 'N/A';
-                            final balance = accountInfo?['balance'] ?? 'N/A';
-                            final city = accountInfo?['city'] ?? 'N/A';
-                            final country = accountInfo?['country'] ?? 'N/A';
+                            final name = accountInfo?.name;
+                            final address = accountInfo?.address;
+                            final balance = accountInfo?.balance;
+                            final city = accountInfo?.city;
+                            final country = accountInfo?.country;
 
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 ListTile(
                                   leading: Icon(Icons.person),
-                                  title: Text('Name: $name', style: TextStyle(color: Colors.black87)),
+                                  title: Text('Name: $name',
+                                      style: TextStyle(color: Colors.black87)),
                                 ),
                                 ListTile(
                                   leading: Icon(Icons.location_on),
-                                  title: Text('Address: $address', style: TextStyle(color: Colors.black87)),
+                                  title: Text('Address: $address',
+                                      style: TextStyle(color: Colors.black87)),
                                 ),
                                 ListTile(
                                   leading: Icon(Icons.attach_money),
-                                  title: Text('Balance: $balance', style: TextStyle(color: Colors.black87)),
+                                  title: Text('Balance: $balance',
+                                      style: TextStyle(color: Colors.black87)),
                                 ),
                                 ListTile(
                                   leading: Icon(Icons.location_city),
-                                  title: Text('City: $city', style: TextStyle(color: Colors.black87)),
+                                  title: Text('City: $city',
+                                      style: TextStyle(color: Colors.black87)),
                                 ),
                                 ListTile(
                                   leading: Icon(Icons.public),
-                                  title: Text('Country: $country', style: TextStyle(color: Colors.black87)),
+                                  title: Text('Country: $country',
+                                      style: TextStyle(color: Colors.black87)),
                                 ),
                                 // Add more properties as needed.
                               ],
@@ -108,9 +119,12 @@ class ProfileView extends StatelessWidget {
                       authController.accessInput.value),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(
+                          child: SpinKitFadingCircle(
+                              color: AppColors.blue, size: 50.0));
                     } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}', style: TextStyle(color: Colors.red));
+                      return Text('Error: ${snapshot.error}',
+                          style: TextStyle(color: Colors.red));
                     } else {
                       final lastFourNumbers = snapshot.data ?? 'N/A';
 
@@ -118,7 +132,7 @@ class ProfileView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                          AppText.lastFourNumbersOfPhone,
+                            AppText.lastFourNumbersOfPhone,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -128,7 +142,9 @@ class ProfileView extends StatelessWidget {
                           SizedBox(height: 8),
                           ListTile(
                             leading: Icon(Icons.phone),
-                            title: Text(lastFourNumbers, style: TextStyle(fontSize: 18, color: Colors.black87)),
+                            title: Text(lastFourNumbers,
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.black87)),
                           ),
                         ],
                       );

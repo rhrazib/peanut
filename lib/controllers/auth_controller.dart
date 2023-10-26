@@ -45,7 +45,7 @@ class AuthController extends GetxController {
     try {
       final isConnected = await checkInternetConnection();
       if (!isConnected) {
-        showCustomSnackbar(context, AppText.noInternetMessage);
+        showAppSnackbar(context, AppText.noInternetMessage);
         isLoading.value = false;
         return;
       }
@@ -53,7 +53,7 @@ class AuthController extends GetxController {
       final response = await authService.login(login, password);
 
       if (response.containsKey('error')) {
-        showCustomSnackbar(context, AppText.loginError);
+        showAppSnackbar(context, AppText.loginError);
       } else {
         await _storage.write(key: accessTokenKey, value: response['token']);
         await _storage.write(key: loginKey, value: login);
@@ -69,7 +69,7 @@ class AuthController extends GetxController {
         Get.toNamed('/dashboard');
       }
     } catch (e) {
-      showCustomSnackbar(context, AppText.networkErrorMessage);
+      showAppSnackbar(context, AppText.networkErrorMessage);
     } finally {
       isLoading.value = false;
     }
